@@ -74,7 +74,10 @@ class Resque_Worker
         }
 
         $this->queues = $queues;
-        if(function_exists('gethostname')) {
+        if (getenv('DYNO')) {
+            $hostname = getenv('DYNO');
+        }
+        else if (function_exists('gethostname')) {
             $hostname = gethostname();
         }
         else {
